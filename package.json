@@ -1,7 +1,6 @@
 {
-  "name": "perf-grunt",
+  "name": "meme",
   "version": "1.0.0",
-  "description": "perfect basic grunt sertup for front-end web",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,10 +10,14 @@
   "devDependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-connect": "^1.0.2",
-    "grunt-contrib-cssmin": "^1.0.1",
-    "grunt-contrib-uglify": "^1.0.1",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-sass": "^1.2.0"
+    "grunt-sass": "^1.2.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-sass": "^1.0.0"
+  },
+  "description": ""
 }

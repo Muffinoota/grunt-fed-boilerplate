@@ -1,80 +1,59 @@
 module.exports = function(grunt) {
 
-  grunt.initConfig({
-    connect: {
-      server: {
-        options: {
-          hostname: 'localhost', //Required to specify livereload script domain
-          port: 1337, //Port for connect server to run on
-          livereload: true, //Inject livereload script to html
-          base: './www-root', //Base of server
-          keepalive: false, //If true, no other tasks get run
-          open: true //Open connect server in browser
+    grunt.initConfig({
+		connect: {
+            all: {
+                options: {
+                    port: 1337,
+                    hostname: 'localhost',
+                    base: './www-root',
+                    keepalive: false,
+                    livereload: true,
+                    open: true
+                }
+            }
         },
-      },
-    },
-    watch: {
-      options: {
-        livereload: true, //Trigger livereload server on filechange
-        cwd: {
-          files: './www-root', //Current working directory for files
+        watch: {
+            options: {
+                livereload: true,
+                cwd: {
+                    files: './www-root'
+                }
+            },
+            js: {
+                 files: ['**/*.js']
+            },
+            html: {
+                files: ['**/*.html']
+            },
+            css: {
+                files: ['**/*.css']
+            },
+            sass: {
+                files: ['**/*.scss'],
+                tasks: ['sass']
+            }
         },
-      },
-      scripts: {
-        files: ['./js/orig/**/*.js'],
-        tasks: ['uglify']
-      },
-      html: {
-        files: ['**/*.html'],
-        tasks: []
-      },
-      sass: {
-        files: ['./css/orig/sass/**/*.scss', './css/sass/**/*.sass'],
-        tasks: ['sass']
-      },
-      css: {
-        files: ['./css/orig/css/**/*.css'],
-        tasks: ['cssmin']
-      },
-    },
-    sass: {
-      options: {
-        sourceMap: false
-      },
-      dist: {
-        files: {
-          './css/orig/sass': ['**/*.scss', '**/*.sass']
+        sass: {
+            options: {
+                style: 'expanded',
+                sourcemap: 'none',
+            },
+            dist: {
+              files: [{
+                expand: true,
+                cwd: './www-root/sass',
+                src: ['*.scss'],
+                dest: './www-root/styles',
+                ext: '_compiled.css'
+                }]
+            },
         },
-      },
-    },
-    uglify: {
-      options: {
-        mangle: false
-      },
-      my_target: {
-        files: {
-          './js/orig/js': ['**/*.js']
-        },
-      },
-    },
-    cssmin: {
-      target: {
-        files: [{
-          expand: true,
-          src: ['./css/orig/css/**/*.css'],
-          dest: '../',
-          ext: '.css'
-        }]
-      },
-    },
-  });
+    });
 
+    grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('grunt-contrib-sass');
 
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-sass');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.registerTask('server', ['connect', 'watch']);
-
+    grunt.registerTask('server', ['connect', 'watch']);
 };
